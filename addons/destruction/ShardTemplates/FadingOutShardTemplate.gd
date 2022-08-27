@@ -1,4 +1,4 @@
-extends RigidBody
+extends RigidDynamicBody3D
 
 func _ready():
 	var material : SpatialMaterial = $MeshInstance.mesh.surface_get_material(0)

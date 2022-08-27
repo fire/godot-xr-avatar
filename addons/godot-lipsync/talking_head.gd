@@ -2,23 +2,23 @@
 # GitHub Project Page: To be released as a addon for the Godot Engine
 # License: MIT
 
-extends MeshInstance
+extends MeshInstance3D
 
-onready var Viseme_Ch : float 
-onready var Viseme_Dd : float 
-onready var Viseme_E : float 
-onready var Viseme_Ff : float
-onready var Viseme_I : float
-onready	var Viseme_O : float
-onready	var Viseme_Pp : float
-onready	var Viseme_Rr : float
-onready	var Viseme_Ss : float
-onready	var Viseme_Th : float
-onready	var Viseme_U : float
-onready	var Viseme_AA : float
-onready	var Viseme_Kk : float
-onready	var Viseme_Nn : float
-onready	var Viseme_Sil : float
+@onready var Viseme_Ch : float 
+@onready var Viseme_Dd : float 
+@onready var Viseme_E : float 
+@onready var Viseme_Ff : float
+@onready var Viseme_I : float
+@onready	var Viseme_O : float
+@onready	var Viseme_Pp : float
+@onready	var Viseme_Rr : float
+@onready	var Viseme_Ss : float
+@onready	var Viseme_Th : float
+@onready	var Viseme_U : float
+@onready	var Viseme_AA : float
+@onready	var Viseme_Kk : float
+@onready	var Viseme_Nn : float
+@onready	var Viseme_Sil : float
 
 func _ready():
 	pass

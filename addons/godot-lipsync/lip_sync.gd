@@ -194,10 +194,10 @@ const VISEMES_DEF = [
 
 
 ## Audio bus name
-export var audio_bus_name := "Mic"
+@export var audio_bus_name := "Mic"
 
 # Audio-Match precision
-export var precision := 0.1
+@export var precision := 0.1
 
 
 # Raw energy for each band (0..1)
@@ -283,7 +283,7 @@ func _process(_delta: float) -> void:
 			distance = min(distance, _fingerprint_distance(fingerprint, reference))
 
 		# Save the distance
-		var score := 1.0 / max(0.01, distance)
+		var score = 1.0 / max(0.01, distance)
 		scores[shape] = score
 		score_sum += score
 

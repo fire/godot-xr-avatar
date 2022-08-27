@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 var openxr_run_select = null

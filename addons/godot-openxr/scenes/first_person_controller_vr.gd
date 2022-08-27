@@ -1,5 +1,5 @@
-tool
-extends ARVROrigin
+@tool
+extends XROrigin3D
 
 signal initialised
 signal failed_initialisation
@@ -15,22 +15,26 @@ signal focused_state
 signal visible_state
 signal pose_recentered
 
-export var auto_initialise = true setget set_auto_initialise
-export var enable_passthrough = false setget set_enable_passthrough
-export (NodePath) var viewport setget set_viewport
-export var near_z = 0.1
-export var far_z = 1000.0
+@export var auto_initialise = true:
+	set(val):
+		set_auto_initialise(val)
+@export var enable_passthrough = false:
+	set(val):
+		set_enable_passthrough(val)
+@export var viewport = null:
+	set(val):
+		set_viewport(val)
+@export var near_z = 0.1
+@export var far_z = 1000.0
 
-var interface : ARVRInterface
+var interface : XRInterface
 var enabled_extensions : Array
 
 func set_auto_initialise(p_new_value):
 	auto_initialise = p_new_value
-	update_configuration_warning()
 
 func set_enable_passthrough(p_new_value):
 	enable_passthrough = p_new_value
-	update_configuration_warning()
 
 	# Only actually start our passthrough if our interface has been instanced
 	# if not this will be delayed until initialise is successfully called.
@@ -43,9 +47,8 @@ func set_enable_passthrough(p_new_value):
 
 func set_viewport(p_new_value):
 	viewport = p_new_value
-	update_configuration_warning()
 
-func get_interface() -> ARVRInterface:
+func get_interface() -> XRInterface:
 	return interface
 
 func _ready():
@@ -64,7 +67,7 @@ func initialise() -> bool:
 		# we are already initialised
 		return true
 
-	interface = ARVRServer.find_interface("OpenXR")
+	interface = XRServer.find_interface("OpenXR")
 	if interface and interface.initialize():
 		print("OpenXR Interface initialized")
 
@@ -133,15 +136,15 @@ func _stop_passthrough():
 	$Configuration.stop_passthrough()
 
 func _connect_plugin_signals():
-	ARVRServer.connect("openxr_session_begun", self, "_on_openxr_session_begun")
-	ARVRServer.connect("openxr_session_ending", self, "_on_openxr_session_ending")
-	ARVRServer.connect("openxr_session_idle", self, "_on_openxr_session_idle")
-	ARVRServer.connect("openxr_session_synchronized", self, "_on_openxr_session_synchronized")
-	ARVRServer.connect("openxr_session_loss_pending", self, "_on_openxr_session_loss_pending")
-	ARVRServer.connect("openxr_session_exiting", self, "_on_openxr_session_exiting")
-	ARVRServer.connect("openxr_focused_state", self, "_on_openxr_focused_state")
-	ARVRServer.connect("openxr_visible_state", self, "_on_openxr_visible_state")
-	ARVRServer.connect("openxr_pose_recentered", self, "_on_openxr_pose_recentered")
+	XRServer.connect("openxr_session_begun", Callable(self, "_on_openxr_session_begun"))
+	XRServer.connect("openxr_session_ending", Callable(self, "_on_openxr_session_ending"))
+	XRServer.connect("openxr_session_idle", Callable(self,  "_on_openxr_session_idle"))
+	XRServer.connect("openxr_session_synchronized",Callable(self,  "_on_openxr_session_synchronized"))
+	XRServer.connect("openxr_session_loss_pending", Callable(self,  "_on_openxr_session_loss_pending"))
+	XRServer.connect("openxr_session_exiting", Callable(self,  "_on_openxr_session_exiting"))
+	XRServer.connect("openxr_focused_state", Callable(self,  "_on_openxr_focused_state"))
+	XRServer.connect("openxr_visible_state", Callable(self,  "_on_openxr_visible_state"))
+	XRServer.connect("openxr_pose_recentered", Callable(self,  "_on_openxr_pose_recentered"))
 
 func _on_openxr_session_begun():
 	# This is called on session ready.

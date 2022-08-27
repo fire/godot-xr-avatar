@@ -1,13 +1,13 @@
-extends Spatial
+extends Node3D
 
-export (NodePath) var configuration
+@export var configuration : NodePath
 
-onready var configuration_node = get_node(configuration) if configuration else null
+@onready var configuration_node = get_node(configuration) if configuration else null
 
 func _update_bounds():
 	$CSGPolygon.visible = false
 	if configuration_node:
-		var polygon : PoolVector2Array
+		var polygon : PackedVector2Array
 		var bounds = configuration_node.get_play_space()
 		if bounds.size() > 0:
 			# While in most conditions our polygon will be flat on the ground but may be lifted up or down,
@@ -28,5 +28,5 @@ func _ready():
 	$CSGPolygon.visible = false
 
 	var origin = get_node("..")
-	origin.connect("pose_recentered", self, "_update_bounds")
-	origin.connect("visible_state", self, "_update_bounds")
+	origin.connect("pose_recentered", Callable(self, "_update_bounds"))
+	origin.connect("visible_state", Callable(self, "_update_bounds"))

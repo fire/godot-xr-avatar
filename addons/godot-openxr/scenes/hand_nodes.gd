@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 ####################################################################################
 # and some process logic to make our hands work

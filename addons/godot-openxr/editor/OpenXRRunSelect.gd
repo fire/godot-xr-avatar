@@ -1,8 +1,8 @@
-tool
+@tool
 extends OptionButton
 
 var available_runtimes : Array = Array()
-onready var platform = OS.get_name()
+@onready var platform = OS.get_name()
 
 var home_folder = ''
 
@@ -30,8 +30,11 @@ func _ready():
 	# read our json file, may have entries for multiple platforms, we'll filter them later
 	var f = File.new()
 	if (f.open("res://addons/godot-openxr/runtimes.json", File.READ)) == OK:
-		var json = JSON.parse(f.get_as_text())
-		available_runtimes = json.result as Array
+		var json = JSON.new()
+		var err = json.parse(f.get_as_text())
+		if err != OK:
+			return
+		available_runtimes = json.get_data() as Array
 		f.close()
 
 	# check what our current value is
